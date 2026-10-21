@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetCare IoT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="ung-dung">
+
+    <header class="dau">
+        <div class="logo">🐾</div>
+        <div class="dau-chu">
+            <h1>PetCare IoT</h1>
+            <p>Xin chào! Hôm nay bé ăn gì nào?</p>
+        </div>
+        <button id="chuong" class="chuong" onclick="moCanhBao()" aria-label="Cảnh báo">
+            🔔<span id="so-canh-bao" hidden></span>
+        </button>
+        <button id="nut-thoat" class="nut-nho nut-icon" onclick="hoiDangXuat()" title="Đăng xuất" aria-label="Đăng xuất" hidden>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 4.5 20 6v12l-6 1.5Z"/>
+                <path d="M14 8H6.5v2.5M14 16H6.5v-2.5"/>
+                <path d="M3 12h9M9.5 9.5 12 12l-2.5 2.5"/>
+            </svg>
+            Thoát
+        </button>
+    </header>
+
+    <!-- MÀN HÌNH ĐĂNG NHẬP -->
+    <main id="man-dn" class="man" hidden>
+        <h2 class="tieu-de">Đăng nhập</h2>
+        <div class="khoi form-be">
+            <label id="dn-nhan-ten" hidden>Họ tên
+                <input id="dn-ho-ten" type="text" autocomplete="name">
+            </label>
+            <label>Email
+                <input id="dn-email" type="email" autocomplete="username">
+            </label>
+            <label>Mật khẩu
+                <input id="dn-mat-khau" type="password" autocomplete="current-password">
+            </label>
+            <p id="kq-dn" class="kq"></p>
+            <button id="nut-dn" class="nut-xanh" onclick="guiDangNhap()">Đăng nhập</button>
+            <button id="nut-doi-che-do" class="nut-nho" onclick="doiCheDo()">Chưa có tài khoản? Đăng ký</button>
+        </div>
+    </main>
+
+    <!-- MÀN HÌNH 1: DANH SÁCH THÚ CƯNG -->
+    <main id="man-ds" class="man">
+        <h2 class="tieu-de">Thú cưng của tôi</h2>
+        <p class="phu">Chọn bé mà bạn muốn cho ăn</p>
+        <div id="ds-thu-cung">Đang tải...</div>
+        <button class="nut-them" onclick="moThemBe()">＋ Thêm thú cưng</button>
+    </main>
+
+    <!-- MÀN HÌNH 2: CHI TIẾT MỘT BÉ -->
+    <main id="man-ct" class="man" hidden>
+        <button class="quay-lai" onclick="veDanhSachLai()">← Tất cả thú cưng</button>
+
+        <div id="ct-be"></div>
+
+        <h2 class="tieu-de">Tình trạng máy</h2>
+        <div id="ct-may" class="khoi"></div>
+
+        <h2 class="tieu-de">Cho ăn ngay</h2>
+        <div class="khoi">
+            <label for="luong">Lượng thức ăn (gam)</label>
+            <div class="hang">
+                <input type="number" id="luong" value="20" min="1">
+                <button id="nut-cho-an" class="nut-xanh" onclick="choAn()">Cho ăn</button>
+            </div>
+            <p id="kq-cho-an" class="kq"></p>
+        </div>
+
+        <h2 class="tieu-de">Lịch cho ăn</h2>
+        <div class="khoi">
+            <div class="hang">
+                <input type="time" id="gio-lich" value="07:00" aria-label="Giờ cho ăn">
+                <input type="number" id="luong-lich" value="20" min="1" aria-label="Lượng thức ăn (gam)">
+                <button class="nut-xanh" onclick="themLich()">Thêm lịch</button>
+            </div>
+            <p id="kq-lich" class="kq"></p>
+            <div id="ds-lich"></div>
+        </div>
+
+        <h2 class="tieu-de">Lịch sử cho ăn</h2>
+        <div class="khoi" id="ds-su"></div>
+    </main>
+
+        <div id="tam-them" class="phu-nen" hidden onclick="if (event.target === this) this.hidden = true">
+        <div class="bang">
+            <div class="hang gian">
+                <h2 class="tieu-de">Thêm thú cưng</h2>
+                <button class="nut-nho" onclick="document.getElementById('tam-them').hidden = true">Đóng</button>
+            </div>
+
+            <div class="form-be">
+                <label>Tên bé *
+                    <input id="be-ten" type="text" placeholder="Ví dụ: Mimi">
+                </label>
+                <label>Loài *
+                    <select id="be-loai">
+                        <option>Chó</option>
+                        <option>Mèo</option>
+                        <option>Khác</option>
+                    </select>
+                </label>
+                <label>Giống
+                    <input id="be-giong" type="text" placeholder="Ví dụ: Poodle">
+                </label>
+                <label>Giới tính
+                    <select id="be-gioi-tinh">
+                        <option value="">Chưa rõ</option>
+                        <option>Đực</option>
+                        <option>Cái</option>
+                    </select>
+                </label>
+                <label>Ngày sinh
+                    <input id="be-ngay-sinh" type="date">
+                </label>
+                <label>Cân nặng (kg)
+                    <input id="be-can-nang" type="number" min="0" step="0.1">
+                </label>
+                <label>Link ảnh (không bắt buộc)
+                    <input id="be-anh" type="url" placeholder="https://...">
+                </label>
+
+                <p id="kq-them-be" class="kq"></p>
+                <button class="nut-xanh" onclick="themBe()">Lưu thú cưng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BẢNG CẢNH BÁO (bấm chuông) -->
+    <div id="tam-cb" class="phu-nen" hidden onclick="if (event.target === this) this.hidden = true">
+        <div class="bang">
+            <div class="hang gian">
+                <h2 class="tieu-de">Cảnh báo</h2>
+                <button class="nut-nho" onclick="document.getElementById('tam-cb').hidden = true">Đóng</button>
+            </div>
+            <div id="ds-canh-bao"></div>
+        </div>
+    </div>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,1 +1,10 @@
-
+fastapi==0.142.4
+uvicorn
+SQLAlchemy
+psycopg2-binary==2.9.13
+pydantic==2.13.5
+python-dotenv==1.2.4
+bcrypt==5.0.0
+PyJWT==2.15.1
+APScheduler==3.11.3
+requests==2.34.2

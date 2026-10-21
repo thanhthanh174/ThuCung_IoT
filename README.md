@@ -137,7 +137,7 @@ Tài liệu đầy đủ, thử trực tiếp: `http://127.0.0.1:8000/docs`.
 - Mọi truy vấn dữ liệu đều lọc theo chủ sở hữu (chống truy cập chéo tài khoản).
 - Thiết bị xác thực bằng khóa HMAC riêng, so sánh hằng thời gian; khóa gốc nằm ở server.
 - CORS chỉ cho phép nguồn khai báo trong `.env`; frontend escape dữ liệu trước khi hiển thị.
-- Threat model và các test case bảo mật: xem báo cáo [và thư mục `tests/` nếu có].
+- Threat model và các test case bảo mật: xem thư mục tests/, chạy bằng python -m pytest tests -v.
 
 **Lưu ý:** không đưa file `.env` lên Git (đã có trong `.gitignore`).
 
